@@ -14,20 +14,22 @@ const GameStyles = StyleSheet.create({
     fontSize: 20,
   },
   randomNumberContainer: {
-    display: "flex",
+    display: "flex", 
     alignItems: "center",
     justifyContent: "center",
     height: percentageHeight(30),
+    marginBottom:percentageHeight(10)
   },
   randomNumber: {
     fontSize: percentageHeight(20),
     fontWeight: "bold",
+    
   },
   timerContainer: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: percentageHeight(10),
+    
   },
   timer: {
     fontSize: percentageHeight(5),
@@ -37,12 +39,39 @@ const GameStyles = StyleSheet.create({
     color: "blue",
     fontWeight: "bold",
     fontSize: percentageHeight(4),
+    opacity:0.4
   },
   button: {
     padding: percentageHeight(1),
-    textAlign: "center",
+    textAlign: "center", 
     borderWidth: 1,
-    fontSize: percentageHeight(2),
+    fontSize: percentageHeight(2.5),
+    fontWeight:"bold",
+    marginTop:percentageHeight(5)
   },
+  gameOverText:{
+    fontSize:percentageHeight(4),
+    fontWeight:"bold",
+    alignSelf:"center",
+    color:"red"
+  },
+  scoreText:{
+    fontSize:percentageHeight(4),
+    fontWeight:"bold",
+    alignSelf:"center",
+    color:"green"
+  },
+  totalView:{
+    borderWidth:2,
+    borderRadius:10,
+    padding:percentageHeight(5),
+    marginTop:percentageHeight(10)
+  },
+  totalText:{
+    fontSize:percentageHeight(2.5),
+    fontWeight:"bold",
+    textAlign:"center",
+    marginBottom:percentageHeight(1)
+  }
 });
 export default GameStyles;

@@ -1,54 +1,81 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View,Dimensions } from "react-native";
 import ScreensComp from "./Screens/ScreensComp";
 import React, { useEffect, useState } from "react";
 export const State = React.createContext();
+const SCREEN_WIDTH = Dimensions.get("screen").width;
+const SCREEN_HEIGHT = Dimensions.get("screen").height;
+const percentageHeight = (percentage) => (SCREEN_HEIGHT * percentage) / 100;
+
+
 
 export default function App() {
-  const [myState, setMyState] = useState({
-    score: 0,
-    randomNumber: randomNumber,
-    timer: 120,
+  let myScoreInitial = 0;
+  let myInitialNoDisplayed = 0;  
+  let myInitialNoZero = 0;
+  let myInitialNoClicked = 0;
+  const [myState, setMyState] = useState({ 
+    myScore: myScoreInitial, 
+    timer: null,
     timeFormat: ["mm", "ss"],
+    totalNumbersDisplayed: 0,  
+    totalNumbersClicked: 0, 
+    totalZeroDisplayed: 0,
+    countScore: countScore,
     countTimer: countTimer,
+    getScore: getScore,
+    totalNumbersDisplayedFunc: totalNumbersDisplayedFunc,
+    totalNumbersClickedFunc: totalNumbersClickedFunc,
+    totalZeroDisplayedFunc: totalZeroDisplayedFunc,
   });
-
-  // function (time) {
-  //   if (this.timer > 0) {
-  //     setMyState({ ...myState, timer: time });
-  //   }
-  // }
-
+   
   function countTimer(time) {
     setMyState({
+      ...myState, 
+      timer: time,  
+    });  
+  }
+  
+  function countScore(Score) {
+    myScoreInitial = Score;
+  } 
+              
+  function getScore() {
+    setMyState({   
       ...myState,
-      timer: time,
+      myScore: myScoreInitial,  
+      totalNumbersDisplayed: myInitialNoDisplayed,
+      totalNumbersClicked:myInitialNoClicked,  
+      totalZeroDisplayed:myInitialNoZero
     });
   }
-
-  function randomNumber(random) {
-    setMyState({
-      ...myState,
-      randomNumber: random,
-    });
+   
+  function totalNumbersDisplayedFunc(numbers) { 
+    myInitialNoDisplayed = numbers;   
   }
-
+  function totalNumbersClickedFunc(clicked) { 
+    myInitialNoClicked = clicked;  
+  }
+  function totalZeroDisplayedFunc(zeros) { 
+    myInitialNoZero = zeros; 
+  } 
+   
   return (
-    <>
-      <StatusBar style="auto" />
+    <> 
       <State.Provider value={myState}>
-        <ScreensComp />
-      </State.Provider>
-    </>
-  );
-}
-
+        <StatusBar style='dark' /> 
+        <ScreensComp />    
+      </State.Provider>  
+    </>   
+  );    
+}   
+    
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "white",
+    flex: 1,  
+    backgroundColor: "white",   
     alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 50,
-  },
-});
+    justifyContent: "center", 
+  }, 
+}); 
+ 
