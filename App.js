@@ -14,13 +14,13 @@ export default function App() {
   let myInitialNoDisplayed = 0;  
   let myInitialNoZero = 0;
   let myInitialNoClicked = 0;
-  const [myState, setMyState] = useState({ 
+  const [myState, setMyState] = useState({  
     myScore: myScoreInitial, 
     timer: null,
     timeFormat: ["mm", "ss"],
-    totalNumbersDisplayed: 0,  
+    totalNumbersDisplayed: 0,   
     totalNumbersClicked: 0, 
-    totalZeroDisplayed: 0,
+    totalZeroDisplayed: 0, 
     countScore: countScore,
     countTimer: countTimer,
     getScore: getScore,
@@ -32,22 +32,22 @@ export default function App() {
   function countTimer(time) {
     setMyState({
       ...myState, 
-      timer: time,  
+      timer: time,   
     });  
-  }
+  } 
   
   function countScore(Score) {
     myScoreInitial = Score;
   } 
               
-  function getScore() {
+  function getScore() { 
     setMyState({   
       ...myState,
       myScore: myScoreInitial,  
-      totalNumbersDisplayed: myInitialNoDisplayed,
+      totalNumbersDisplayed: myInitialNoDisplayed, 
       totalNumbersClicked:myInitialNoClicked,  
-      totalZeroDisplayed:myInitialNoZero
-    });
+      totalZeroDisplayed:myInitialNoZero  
+    }); 
   }
    
   function totalNumbersDisplayedFunc(numbers) { 

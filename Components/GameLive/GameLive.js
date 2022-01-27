@@ -62,8 +62,6 @@ const GameLive = () => {
     setIsWrong("black");
     if (isClicked === false && isZero === true) {
       // -3points
-      console.log("Zero not clicked");
-
       setScore((prevState) => prevState - 3);
       setIsZero(false);
     } else if (
@@ -71,12 +69,10 @@ const GameLive = () => {
       isZero === false &&
       randomNumber !== null
     ) {
-      console.log("non zero not clicked");
       // +1 points
       setScore((prevState) => prevState + 1); 
     } else if (isClicked === true && isZero === true) {
       // +5 points
-      console.log("zero clicked");
       setScore((prevState) => prevState + 5);
       setIsZero(false);
       setIsClicked(false);
@@ -86,9 +82,10 @@ const GameLive = () => {
       clickedNumber !== null
     ) {
       // -2.5points
-      console.log("non zero clicked");
       setScore((prevState) => prevState - 2.5);
       setIsClicked(false);
+    }else{
+      console.log("nothing")
     }
   };
 
