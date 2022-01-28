@@ -12,6 +12,7 @@ const GameStyles = StyleSheet.create({
   liveScore: {
     fontWeight: "bold",
     fontSize: 20,
+    fontFamily: 'sans-serif-medium'
   },
   randomNumberContainer: {
     display: "flex", 
@@ -23,9 +24,9 @@ const GameStyles = StyleSheet.create({
   randomNumber: {
     fontSize: percentageHeight(20),
     fontWeight: "bold",
-    
+    fontFamily: 'sans-serif-medium'
   },
-  timerContainer: {
+  timerContainer: { 
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -34,12 +35,13 @@ const GameStyles = StyleSheet.create({
   timer: {
     fontSize: percentageHeight(5),
     fontWeight: "bold",
-  },
+  }, 
   timeFormat: {
     color: "blue",
     fontWeight: "bold",
     fontSize: percentageHeight(4),
-    opacity:0.4
+    opacity:0.4,
+    fontFamily:"monospace"
   },
   button: {
     padding: percentageHeight(1),

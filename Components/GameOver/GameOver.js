@@ -4,7 +4,6 @@ import { State } from "../../App";
 import GameStyles from "../GameStyles";
 const GameOver = () => {
   const state = useContext(State);
-  console.log(state);
   useEffect(() => {
     state.getScore();
   }, []);

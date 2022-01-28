@@ -6,24 +6,24 @@ import { useNavigation } from "@react-navigation/native";
 
 const GameLive = () => {
   const state = useContext(State);
-  const [randomNumber, setRandomNumber] = useState(null);
-  const [Score, setScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
+  const [Score, setScore] = useState(0);
+  const [randomNumber, setRandomNumber] = useState(null);
+  const [isZero, setIsZero] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [clickedNumber, setClickedNumber] = useState(null);
+  const [isWrong, setIsWrong] = useState("black");
   const [isCompleted, setIsCompleted] = useState(false);
-  const [isZero, setIsZero] = useState(false);
   const [totalNumbersDisplayed, setTotalNumbersDisplayed] = useState(0);
   const [totalNumbersClicked, setTotalNumbersClicked] = useState(0);
   const [totalZeroDisplayed, setTotalZeroDisplayed] = useState(0);
-  const [isWrong, setIsWrong] = useState("black");
-
+  
   const navigation = useNavigation();
   let numberOfSeconds = 120;
   let randomCreater = null;
   var interval = null;
 
-  useEffect(() => {
+  useEffect(() => { 
     state.countScore(Score);
   }, [Score]);
 
@@ -32,7 +32,6 @@ const GameLive = () => {
       console.log(
         `Ramdom = ${randomNumber}, isclicked-${isClicked},clickednumber:${clickedNumber},score:${Score}}`
       );
-
       score();
       setIsCompleted(false);
       state.totalNumbersDisplayedFunc(totalNumbersDisplayed);
@@ -59,6 +58,8 @@ const GameLive = () => {
   };
 
   const score = () => {
+
+
     setIsWrong("black");
     if (isClicked === false && isZero === true) {
       // -3points
@@ -85,7 +86,7 @@ const GameLive = () => {
       setScore((prevState) => prevState - 2.5);
       setIsClicked(false);
     }else{
-      console.log("nothing")
+      console.log("nothing ")
     }
   };
 
@@ -112,13 +113,11 @@ const GameLive = () => {
         setIsZero(false);
       }
       setTotalNumbersDisplayed((prevState) => prevState + 1);
-      // console.log("Game timer ", randomCreater);
       setTimeout(() => {
         setRandomNumber(null);
         setIsCompleted(true);
       }, 2000);
     }
-
     if (numberOfSeconds >= 0) {
       state.countTimer(numberOfSeconds);
     } else {
@@ -136,7 +135,6 @@ const GameLive = () => {
       gameTimer();
     }, 1000);
   };
-
   return (
     <View style={GameStyles.container}>
       <Text style={[GameStyles.liveScore, { color: isWrong }]}>
@@ -163,8 +161,42 @@ const GameLive = () => {
           Start
         </Text>
       </TouchableOpacity>
+     
+
     </View>
   );
 };
 
 export default GameLive;
+
+
+
+//for stop
+/**
+   const [newInterval,setNewInterval] = useState(null)
+
+   const start2=()=>{
+    setGameStarted(true);
+    gameTimer();
+    setNewInterval(
+      setInterval(()=>{
+        gameTimer();
+      },1000)
+    )
+  }
+  const stop=()=>{
+    setGameStarted(false);
+    clearInterval(newInterval)
+  }
+  <TouchableOpacity onPress={() => start2()}>
+    <Text style={[GameStyles.button, { opacity: gameStarted ? 0.2 : 1 }]}>
+      Start
+    </Text>
+  </TouchableOpacity>
+  <TouchableOpacity onPress={() => stop()}>
+    <Text style={[GameStyles.button]}>
+      stop
+    </Text>
+  </TouchableOpacity>
+ * 
+ */
