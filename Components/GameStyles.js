@@ -45,7 +45,7 @@ const GameStyles = StyleSheet.create({
     fontFamily:"monospace"
   },
   startButton: {
-    padding: percentageHeight(1),
+    padding: percentageHeight(1), 
     textAlign: "center", 
     borderWidth: 2,
     fontSize: percentageHeight(2.5),

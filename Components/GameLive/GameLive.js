@@ -6,32 +6,35 @@ import { useNavigation } from "@react-navigation/native";
 
 const GameLive = () => {
   const state = useContext(State);
-  const [gameStarted, setGameStarted] = useState(false);
-  const [Score, setScore] = useState(0);
+  const [isGameStarted, setIsGameStarted] = useState(false);
+  const [score, setScore] = useState(0);
   const [randomNumber, setRandomNumber] = useState(null);
   const [isZero, setIsZero] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  const [clickedNumber, setClickedNumber] = useState(null);
-  const [isWrong, setIsWrong] = useState("black");
+  const [clickedNumber, setClickedNumber] = useState(null); 
+  const [wrongClickColor, setWrongClickColor] = useState("black");
   const [isCompleted, setIsCompleted] = useState(false);
   const [totalNumbersDisplayed, setTotalNumbersDisplayed] = useState(0);
   const [totalNumbersClicked, setTotalNumbersClicked] = useState(0);
   const [totalZeroDisplayed, setTotalZeroDisplayed] = useState(0);
   const [newInterval, setNewInterval] = useState(null);
   const navigation = useNavigation();
+  const INTERVAL_TIME = 1000; //in millisecond
+  const INTERVAL_BETWEEN_TWO_RANDOM_NUMBER = 3 //seconds
   let numberOfSeconds = 120;
   let randomCreater = null;
+  
 
   useEffect(() => {
-    state.countScore(Score);
-  }, [Score]);
+    state.countScore(score);
+  }, [score]);
 
   useEffect(() => {
-    if (gameStarted && isCompleted) {
+    if (isGameStarted && isCompleted) {
       console.log(
-        `Ramdom = ${randomNumber}, isclicked-${isClicked},clickednumber:${clickedNumber},score:${Score}}`
+        `Ramdom = ${randomNumber}, isclicked-${isClicked},clickednumber:${clickedNumber},score:${score}}`
       );
-      score();
+      scoreCalculation();
       setIsCompleted(false);
       setClickedNumber(null);
       state.totalNumbersDisplayedFunc(totalNumbersDisplayed);
@@ -57,8 +60,8 @@ const GameLive = () => {
     }
   };
 
-  const score = () => {
-    setIsWrong("black");
+  const scoreCalculation = () => {
+    setWrongClickColor("black")
     if (isClicked === false && isZero === true) {
       // -3points
       setScore((prevState) => prevState - 3);
@@ -94,12 +97,12 @@ const GameLive = () => {
     }
 
     if (clickedNumber !== 0) {
-      setIsWrong("red");
+      setWrongClickColor("red")
     }
   };
 
   const gameTimer = () => {
-    if (numberOfSeconds % 3 === 0) {
+    if (numberOfSeconds % INTERVAL_BETWEEN_TWO_RANDOM_NUMBER === 0) {
       randomCreater = Math.floor(Math.random() * (5 - 0));
       setRandomNumber(randomCreater);
       if (randomCreater === 0) {
@@ -119,29 +122,31 @@ const GameLive = () => {
     } else {
       clearInterval(newInterval);
       state.getScore();
-      setGameStarted(false);
+      setIsGameStarted(false);
       navigation.navigate("GameOver");
     }
     numberOfSeconds = numberOfSeconds - 1; 
   };
+
   const start = () => {
-    setGameStarted(true);
+    setIsGameStarted(true);
     gameTimer();
     setNewInterval(
       setInterval(() => {
         gameTimer();
-      }, 1000)
+      }, INTERVAL_TIME)
     );
   };
+
   const stop = () => {
-    setGameStarted(false);
+    setIsGameStarted(false);
     clearInterval(newInterval);
     navigation.navigate("GameOver");
   };
   return (
     <View style={GameStyles.container}>
-      <Text style={[GameStyles.liveScore, { color: isWrong }]}>
-        Live Score: {Score}
+      <Text style={[GameStyles.liveScore, { color: wrongClickColor }]}>
+        Live Score: {score}
       </Text>
       <TouchableOpacity
         style={GameStyles.randomNumberContainer}
@@ -159,8 +164,8 @@ const GameLive = () => {
           {state.timeFormat[0]}:{state.timeFormat[1]}
         </Text>
       </View>
-
-      {gameStarted ? (
+ 
+      {isGameStarted ? (
         <TouchableOpacity onPress={() => stop()}>
           <Text style={[GameStyles.stopButton]}>Stop</Text>
         </TouchableOpacity>

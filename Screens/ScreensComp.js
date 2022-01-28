@@ -33,13 +33,13 @@ console.log("Screen mount");
 export default ScreensComp;
 const headerOptions1 = {
   headerStyle: {
-    backgroundColor: "#1EF28F",
+    backgroundColor: "lightgreen",
   },
   headerTitleAlign: "center",
   headerTintColor: "black",
   
 };
-const headerOptions2 = {
+const headerOptions2 = { 
   headerStyle: {
     backgroundColor: "#FF8000",
   },
@@ -48,4 +48,4 @@ const headerOptions2 = {
   headerBackVisible:false
 };
 const styles = StyleSheet.create({});
- 
+  
