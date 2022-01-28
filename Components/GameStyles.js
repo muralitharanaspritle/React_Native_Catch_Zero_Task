@@ -19,7 +19,8 @@ const GameStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: percentageHeight(30),
-    marginBottom:percentageHeight(10)
+    marginBottom:percentageHeight(10),
+    marginTop:percentageHeight(10)
   },
   randomNumber: {
     fontSize: percentageHeight(20),
@@ -43,13 +44,23 @@ const GameStyles = StyleSheet.create({
     opacity:0.4,
     fontFamily:"monospace"
   },
-  button: {
+  startButton: {
     padding: percentageHeight(1),
     textAlign: "center", 
-    borderWidth: 1,
+    borderWidth: 2,
     fontSize: percentageHeight(2.5),
     fontWeight:"bold",
     marginTop:percentageHeight(5)
+    , backgroundColor:"lightgreen" 
+  },
+  stopButton: {
+    padding: percentageHeight(1),
+    textAlign: "center", 
+    borderWidth: 2,
+    fontSize: percentageHeight(2.5),
+    fontWeight:"bold",
+    marginTop:percentageHeight(5)
+    , backgroundColor:"tomato" 
   },
   gameOverText:{
     fontSize:percentageHeight(4),

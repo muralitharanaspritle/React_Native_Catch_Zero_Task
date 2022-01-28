@@ -1,16 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import React, { useContext, useEffect } from "react";
 import { State } from "../../App";
 import GameStyles from "../GameStyles";
+import { useNavigation } from "@react-navigation/native";
+
 const GameOver = () => {
   const state = useContext(State);
   useEffect(() => {
     state.getScore();
   }, []);
+  
   return (
     <View style={GameStyles.container}>
       <Text style={GameStyles.gameOverText}>Game Over !!</Text>
-      <Text style={GameStyles.scoreText}>You Scored {state.myScore}</Text> 
+      <Text style={GameStyles.scoreText}>You Scored {state.myScore}</Text>
       <View style={GameStyles.totalView}>
         <Text style={GameStyles.totalText}>
           Total Numbers displayed {state.totalNumbersDisplayed}

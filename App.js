@@ -9,7 +9,7 @@ export default function App() {
   let myScoreInitial = 0;
   let myInitialNoDisplayed = 0;
   let myInitialNoZero = 0;
-  let myInitialNoClicked = 0;
+  let myInitialNoClicked = 0; 
   const [myState, setMyState] = useState({
     myScore: myScoreInitial,
     timer: null,
@@ -22,16 +22,16 @@ export default function App() {
     getScore: getScore,
     totalNumbersDisplayedFunc: totalNumbersDisplayedFunc,
     totalNumbersClickedFunc: totalNumbersClickedFunc,
-    totalZeroDisplayedFunc: totalZeroDisplayedFunc,
+    totalZeroDisplayedFunc: totalZeroDisplayedFunc, 
   });
-
+  
   function countTimer(time) {
     setMyState({
       ...myState,
       timer: time,
-    });
+    }); 
   }
-
+ 
   function countScore(Score) {
     myScoreInitial = Score;
   }
@@ -39,7 +39,7 @@ export default function App() {
   function getScore() {
     setMyState({
       ...myState,
-      myScore: myScoreInitial,
+      myScore: myScoreInitial, 
       totalNumbersDisplayed: myInitialNoDisplayed,
       totalNumbersClicked: myInitialNoClicked,
       totalZeroDisplayed: myInitialNoZero,
@@ -57,13 +57,13 @@ export default function App() {
   }
 
   return (
-    <>
+    <> 
       <State.Provider value={myState}>
-        <StatusBar style="dark" />
+        <StatusBar style="dark" /> 
         <ScreensComp />
       </State.Provider>
-    </>
-  );
+    </>  
+  );  
 }
 
 const styles = StyleSheet.create({

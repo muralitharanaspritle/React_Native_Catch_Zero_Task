@@ -17,13 +17,12 @@ const GameLive = () => {
   const [totalNumbersDisplayed, setTotalNumbersDisplayed] = useState(0);
   const [totalNumbersClicked, setTotalNumbersClicked] = useState(0);
   const [totalZeroDisplayed, setTotalZeroDisplayed] = useState(0);
-  
+  const [newInterval, setNewInterval] = useState(null);
   const navigation = useNavigation();
   let numberOfSeconds = 120;
   let randomCreater = null;
-  var interval = null;
 
-  useEffect(() => { 
+  useEffect(() => {
     state.countScore(Score);
   }, [Score]);
 
@@ -34,6 +33,7 @@ const GameLive = () => {
       );
       score();
       setIsCompleted(false);
+      setClickedNumber(null);
       state.totalNumbersDisplayedFunc(totalNumbersDisplayed);
       state.totalNumbersClickedFunc(totalNumbersClicked);
       state.totalZeroDisplayedFunc(totalZeroDisplayed);
@@ -58,35 +58,31 @@ const GameLive = () => {
   };
 
   const score = () => {
-
-
     setIsWrong("black");
     if (isClicked === false && isZero === true) {
       // -3points
       setScore((prevState) => prevState - 3);
-      setIsZero(false);
     } else if (
       isClicked === false &&
       isZero === false &&
       randomNumber !== null
     ) {
       // +1 points
-      setScore((prevState) => prevState + 1); 
+      setScore((prevState) => prevState + 1);
     } else if (isClicked === true && isZero === true) {
       // +5 points
       setScore((prevState) => prevState + 5);
-      setIsZero(false);
+
       setIsClicked(false);
     } else if (
       isClicked === true &&
-      isZero === false &&
-      clickedNumber !== null
+      isZero === false
     ) {
       // -2.5points
       setScore((prevState) => prevState - 2.5);
       setIsClicked(false);
-    }else{
-      console.log("nothing ")
+    } else {
+      console.log("nothing ");
     }
   };
 
@@ -121,19 +117,26 @@ const GameLive = () => {
     if (numberOfSeconds >= 0) {
       state.countTimer(numberOfSeconds);
     } else {
+      clearInterval(newInterval);
       state.getScore();
-      clearInterval(interval);
+      setGameStarted(false);
       navigation.navigate("GameOver");
     }
-    numberOfSeconds = numberOfSeconds - 1;
+    numberOfSeconds = numberOfSeconds - 1; 
   };
-
   const start = () => {
     setGameStarted(true);
     gameTimer();
-    interval = setInterval(() => {
-      gameTimer();
-    }, 1000);
+    setNewInterval(
+      setInterval(() => {
+        gameTimer();
+      }, 1000)
+    );
+  };
+  const stop = () => {
+    setGameStarted(false);
+    clearInterval(newInterval);
+    navigation.navigate("GameOver");
   };
   return (
     <View style={GameStyles.container}>
@@ -156,47 +159,18 @@ const GameLive = () => {
           {state.timeFormat[0]}:{state.timeFormat[1]}
         </Text>
       </View>
-      <TouchableOpacity onPress={() => start()}>
-        <Text style={[GameStyles.button, { opacity: gameStarted ? 0.2 : 1 }]}>
-          Start
-        </Text>
-      </TouchableOpacity>
-     
 
+      {gameStarted ? (
+        <TouchableOpacity onPress={() => stop()}>
+          <Text style={[GameStyles.stopButton]}>Stop</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={() => start()}>
+          <Text style={[GameStyles.startButton]}>Start</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
 
 export default GameLive;
-
-
-
-//for stop
-/**
-   const [newInterval,setNewInterval] = useState(null)
-
-   const start2=()=>{
-    setGameStarted(true);
-    gameTimer();
-    setNewInterval(
-      setInterval(()=>{
-        gameTimer();
-      },1000)
-    )
-  }
-  const stop=()=>{
-    setGameStarted(false);
-    clearInterval(newInterval)
-  }
-  <TouchableOpacity onPress={() => start2()}>
-    <Text style={[GameStyles.button, { opacity: gameStarted ? 0.2 : 1 }]}>
-      Start
-    </Text>
-  </TouchableOpacity>
-  <TouchableOpacity onPress={() => stop()}>
-    <Text style={[GameStyles.button]}>
-      stop
-    </Text>
-  </TouchableOpacity>
- * 
- */
